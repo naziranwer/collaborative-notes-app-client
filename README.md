@@ -56,8 +56,9 @@ The application is hosted at: [https://collaborative-notes-app-client.onrender.c
 1. Open your browser and navigate to `http://localhost:3000`.
 2. Register a new account or log in with an existing account.
 3. Create a new note or select an existing note to edit.
-4. Add collaborators by entering their email addresses and assigning roles.
-5. Use the version history to view and revert to previous versions of notes.
+4. Add collaborators by entering their name and assigning roles.
+5. Edit the content in Rich Text Editor your collabolators will see immediate changes
+6. Use the version history to view and revert to previous versions of notes.
 
 ## Routes
 
@@ -66,7 +67,6 @@ The application is hosted at: [https://collaborative-notes-app-client.onrender.c
 - `/register` - User registration page
 - `/notes` - List of all notes
 - `/notes/:id` - View or edit a specific note
-- `/profile` - User profile page
 
 ## Contributing
 
