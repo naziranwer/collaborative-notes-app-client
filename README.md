@@ -35,7 +35,7 @@ The application is hosted at: [https://collaborative-notes-app-client.onrender.c
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/collaborative-notes-app.git
+   git clone https://github.com/naziranwer/collaborative-notes-app-client
    cd collaborative-notes-app/client
    ```
 
