@@ -2,6 +2,10 @@
 
 This is the frontend client for the Collaborative Notes App. It is built with React and Vite. The client allows users to create, edit, and manage notes collaboratively with real-time updates.
 
+## Hosted URL
+
+The application is hosted at: [https://collaborative-notes-app-client.onrender.com](https://collaborative-notes-app-client.onrender.com)
+
 ## Table of Contents
 
 - [Features](#features)
