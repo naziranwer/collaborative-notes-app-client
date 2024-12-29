@@ -20,7 +20,7 @@ The application is hosted at: [https://collaborative-notes-app-client.onrender.c
 - Create, edit, and delete notes
 - Manage note versions and revert to previous versions
 - Add collaborators with different roles (viewer, editor)
-- Real-time updates with WebSockets (if applicable)
+- Real-time updates with WebSockets when notes opened on editor
 - User authentication and authorization
 
 ## Installation
