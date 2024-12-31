@@ -1,20 +1,31 @@
 import { AuthContext } from "../context/AuthContext";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  //   const user = JSON.parse(sessionStorage.getItem("user"));
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <nav className="bg-blue-600 p-4">
+    <nav className="bg-gradient-to-r from-[#f3ca25] to-[#f3b625] p-4 py-6 fixed w-full top-0 shadow-md z-10">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white text-lg font-semibold">
-          Collaborative Notes
+        <Link
+          to="/"
+          className="text-gray-800 text-lg font-bold hover:text-gray-600 transition duration-300"
+        >
+          <img
+            src="../../public/peernotestext-removebg-preview.png"
+            alt="logo"
+            className="h-10 w-36  "
+          />
         </Link>
-        <div className="flex items-center ">
-          <div className="text-white mr-4">{user.name}</div>
-          <div onClick={() => logout()} className="text-white cursor-pointer">
+        <div className="flex items-center">
+          <div className="text-gray-800 mr-4 hover:text-gray-600 font-bold">
+            {user.name}
+          </div>
+          <div
+            onClick={() => logout()}
+            className="text-gray-800 cursor-pointer hover:text-gray-600 font-bold transition duration-300"
+          >
             Logout
           </div>
         </div>

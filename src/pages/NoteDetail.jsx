@@ -119,7 +119,7 @@ const NoteDetail = () => {
   if (!note) return <div>Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-white p-6">
       <div className=" mx-auto bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
           {note.title}
@@ -165,7 +165,7 @@ const NoteDetail = () => {
             <div className="p-4">
               <button
                 onClick={() => setShowDropdown(true)}
-                className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
+                className="bg-button text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
               >
                 Add Colloaborator
               </button>
@@ -178,14 +178,14 @@ const NoteDetail = () => {
           onUpdate={handleNoteUpdate}
         />
         <div>
-          <h2 className="text-xl font-semibold text-center text-gray-800 mb-2">
+          <h2 className="text-xl font-semibold text-center text-gray-800 mt-4 mb-2">
             Version History
           </h2>
           <div className="grid grid-cols-1 gap-4">
             {note.versionHistory.map((version, index) => (
               <div
                 key={version._id}
-                className="bg-white p-4 rounded-lg shadow-md relative group"
+                className="bg-gray-100 p-4 rounded-lg shadow-md relative group"
               >
                 <p className="text-gray-800">
                   {new Date(version.timestamp).toLocaleString()}

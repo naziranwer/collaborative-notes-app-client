@@ -63,8 +63,8 @@ const NoteCreator = ({ onNoteCreated, note }) => {
       <button
         onClick={handleCreateOrUpdateNote}
         disabled={isCreating}
-        className={`px-4 py-2 bg-blue-600 text-white rounded-md ${
-          isCreating ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+        className={`px-4 py-2 bg-button text-white font-semibold rounded-md ${
+          isCreating ? "opacity-50 cursor-not-allowed" : "hover:bg-[#9b2426]"
         }`}
       >
         {isCreating

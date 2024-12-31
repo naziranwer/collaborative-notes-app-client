@@ -68,18 +68,18 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-0">
       <div className="w-full mx-auto bg-white p-8 shadow-lg">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
-          Welcome to Collaborative Notes
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-2">
+          Welcome to PeerNotes
         </h1>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-center text-gray-600 mb-6">
           Create and manage your notes collaboratively.
         </p>
         <div className="mb-8 text-center">
           <button
             onClick={handleAddNote}
-            className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
+            className="bg-button text-white font-semibold p-4 rounded-full hover:bg-[#9b2426] transition duration-300 w-20 h-20"
           >
-            Add New Note
+            Add Note
           </button>
         </div>
         <NotesList

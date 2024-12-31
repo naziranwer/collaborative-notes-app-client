@@ -34,9 +34,9 @@ const Register = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl">
-        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-          Create an Account
-        </h2>
+        <div className="flex justify-center">
+          <img src="/logowithoutbg.png" alt="logo" className="h-36 w-auto" />
+        </div>
         <form onSubmit={handleRegister}>
           <div className="mb-4">
             <label className="block text-gray-700">Name</label>
@@ -73,7 +73,7 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+            className="w-full bg-button text-white font-semibold py-2 rounded-lg hover:bg-[#9b2426] transition duration-300"
           >
             Register
           </button>
@@ -83,7 +83,7 @@ const Register = () => {
             Already have an account?{" "}
             <a
               href="/login"
-              className="text-indigo-600 hover:underline font-medium"
+              className="text-button hover:underline font-medium"
             >
               Login
             </a>

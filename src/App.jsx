@@ -15,14 +15,16 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 // ProtectedRoute Component
 const ProtectedRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
   return user ? (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="">{children}</div>
+      <main className="flex-grow mt-24">{children}</main>
+      <Footer />
     </div>
   ) : (
     <Navigate to="/login" replace />
