@@ -12,11 +12,7 @@ const Navbar = () => {
           to="/"
           className="text-gray-800 text-lg font-bold hover:text-gray-600 transition duration-300"
         >
-          <img
-            src="../../public/peernotestext-removebg-preview.png"
-            alt="logo"
-            className="h-10 w-36  "
-          />
+          <img src="/peerNote.png" alt="logo" className="h-10 w-36  " />
         </Link>
         <div className="flex items-center">
           <div className="text-gray-800 mr-4 hover:text-gray-600 font-bold">
