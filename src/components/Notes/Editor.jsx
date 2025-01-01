@@ -28,13 +28,13 @@ const Editor = ({ canEdit, content, onUpdate }) => {
         onChange={handleContentChange}
         readOnly={!canEdit}
         theme="snow"
-        className="bg-white p-4 rounded-lg shadow-md"
+        className="bg-white p-4  shadow-md"
       />
       {canEdit && (
         <div className="flex justify-end mt-4">
           <button
             onClick={handleSave}
-            className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
+            className="bg-secondary font-semibold text-white py-2 px-4 rounded-lg hover:bg-primary transition duration-300"
           >
             Save
           </button>

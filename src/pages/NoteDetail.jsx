@@ -120,19 +120,21 @@ const NoteDetail = () => {
 
   return (
     <div className="min-h-screen bg-white p-6">
-      <div className=" mx-auto bg-white p-8 rounded-lg shadow-lg">
+      <div className=" mx-auto bg-white p-8 rounded-lg ">
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
           {note.title}
         </h1>
         <div className="flex justify-between items-center ">
           <div className="p-4">
             <p>
-              Created by: {note.createdBy.name} on{" "}
+              <span className="font-semibold">Created by: </span>{" "}
+              {note.createdBy.name} on{" "}
               {new Date(note.createdAt).toLocaleString()}
             </p>
             <p>
               {" "}
-              Last updated on : {new Date(note.updatedAt).toLocaleString()}
+              <span className="font-semibold">Last updated on :</span>{" "}
+              {new Date(note.updatedAt).toLocaleString()}
             </p>
           </div>
           {showDropdown ? (
@@ -155,7 +157,7 @@ const NoteDetail = () => {
                 </select>
                 <button
                   onClick={handleAddCollaborators}
-                  className="mt-2 bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-300"
+                  className="mt-2 bg-button font-semibold text-white py-2 px-4 rounded-lg hover:bg-[#9b2426] transition duration-300"
                 >
                   Add Collaborators
                 </button>
@@ -165,7 +167,7 @@ const NoteDetail = () => {
             <div className="p-4">
               <button
                 onClick={() => setShowDropdown(true)}
-                className="bg-button text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
+                className="bg-button text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#9b2426] transition duration-300"
               >
                 Add Colloaborator
               </button>
@@ -198,7 +200,7 @@ const NoteDetail = () => {
                 </button>
                 <button
                   onClick={() => handleRevertToVersion(version)}
-                  className="absolute top-2 right-2 bg-red-600 text-white py-1 px-3 rounded-lg hover:bg-red-700 transition duration-300 opacity-0 group-hover:opacity-100"
+                  className="absolute top-6 right-2 bg-red-600 text-white py-1 px-3 rounded-lg hover:bg-red-700 transition duration-300 opacity-0 group-hover:opacity-100"
                 >
                   Revert to this Version
                 </button>
