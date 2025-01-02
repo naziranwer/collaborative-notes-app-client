@@ -1,6 +1,7 @@
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import Avatar from "./Avatar";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -15,9 +16,10 @@ const Navbar = () => {
           <img src="/peerNote.png" alt="logo" className="h-10 w-36  " />
         </Link>
         <div className="flex items-center">
-          <div className="text-gray-800 mr-4 hover:text-gray-600 font-bold">
+          {/* <div className="text-gray-800 mr-4 hover:text-gray-600 font-bold">
             {user.name}
-          </div>
+          </div> */}
+          <Avatar name={user.name} />
           <div
             onClick={() => logout()}
             className="text-gray-800 cursor-pointer hover:text-gray-600 font-bold transition duration-300"
