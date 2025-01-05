@@ -8,7 +8,10 @@ const Avatar = ({ name }) => {
   };
 
   return (
-    <div className="bg-gray-800 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4">
+    <div
+      title={name}
+      className="bg-gray-800 cursor-pointer text-white rounded-full w-10 h-10 flex items-center justify-center font-bold mr-4"
+    >
       {getInitials(name)}
     </div>
   );

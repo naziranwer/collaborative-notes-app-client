@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // Adjust the import path as needed
 import { AuthContext } from "../../context/AuthContext";
 import API from "../../utils/api";
@@ -11,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +20,9 @@ const Login = () => {
       const { data } = await API.post("/auth/login", { email, password });
       login(data);
       toast.success("Login Succesfull!");
-      navigate("/"); // Redirect to homepage after successful login
+      //navigate("/"); // Redirect to homepage after successful login
+      const from = location.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
     } catch (err) {
       setError(err.response?.data?.error || "Login failed");
       toast.error(err.message || "Login failed");

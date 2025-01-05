@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import { useContext } from "react";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
@@ -16,10 +17,12 @@ import Register from "./components/Auth/Register";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import InvitePage from "./pages/InvitePage";
 
 // ProtectedRoute Component
 const ProtectedRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
+  const location = useLocation();
   return user ? (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -27,7 +30,7 @@ const ProtectedRoute = ({ children }) => {
       <Footer />
     </div>
   ) : (
-    <Navigate to="/login" replace />
+    <Navigate to="/login" state={{ from: location }} replace />
   );
 };
 
@@ -53,6 +56,14 @@ const App = () => (
           element={
             <ProtectedRoute>
               <NoteDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/:noteId/:permission"
+          element={
+            <ProtectedRoute>
+              <InvitePage />
             </ProtectedRoute>
           }
         />

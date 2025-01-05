@@ -5,6 +5,7 @@ import API from "../utils/api";
 import socket from "../utils/socket";
 import { toast } from "react-toastify";
 import CollaboratorSelector from "../components/Notes/CollaboratorSelector";
+import { frontEndUrl } from "../utils/constant";
 
 const NoteDetail = () => {
   const { noteId } = useParams(); // Access note ID from URL params
@@ -13,7 +14,9 @@ const NoteDetail = () => {
   const [selectedVersion, setSelectedVersion] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedCollaborators, setSelectedCollaborators] = useState([]);
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const userMain = JSON.parse(sessionStorage.getItem("user"));
+  const [activeUsers, setActiveUsers] = useState([]);
+  const [generatedUrl, setGeneratedUrl] = useState("");
 
   // Fetch the note data when the component is mounted
   useEffect(() => {
@@ -37,9 +40,26 @@ const NoteDetail = () => {
     if (noteId) {
       socket.on("connect", () => {
         // Log successful connection
+        console.log("socket connected with id:", socket.id);
       });
 
-      socket.emit("joinNote", { noteId });
+      const user = { id: socket.id, name: userMain.name };
+      socket.emit("joinNote", { noteId, user });
+
+      socket.on("userJoined", (user) => {
+        setActiveUsers((prevUsers) => [...prevUsers, user]);
+      });
+
+      socket.on("userLeft", (user) => {
+        setActiveUsers((prevUsers) =>
+          prevUsers.filter((u) => u.id !== user.id)
+        );
+      });
+
+      socket.on("activeUsers", (users) => {
+        // console.log("activeUsers----->", users);
+        setActiveUsers(users);
+      });
 
       // Listen for updates to the note content
       socket.on("noteUpdated", (updatedNote) => {
@@ -49,22 +69,30 @@ const NoteDetail = () => {
       socket.on("disconnect", () => {
         console.log("Socket disconnected"); // Debug on disconnect
       });
+      return () => {
+        socket.emit("leaveNote", { noteId, user });
+        socket.off("userJoined");
+        socket.off("userLeft");
+        socket.off("noteUpdated");
+        socket.off("activeUsers");
+      };
     }
   }, [noteId]);
 
   const canEdit =
     note &&
-    (user._id === note.createdBy._id ||
+    (userMain._id === note.createdBy._id ||
       note.collaborators.some(
         (collaborator) =>
-          collaborator.userId === user._id && collaborator.permission === "edit"
+          collaborator.userId === userMain._id &&
+          collaborator.permission === "edit"
       ));
   // Handle updating the note content
   const handleNoteUpdate = (updatedContent) => {
     socket.emit("updateNote", {
       noteId,
       content: updatedContent,
-      userId: user._id,
+      userId: userMain._id,
     });
   };
 
@@ -116,6 +144,16 @@ const NoteDetail = () => {
     }
   };
 
+  useEffect(() => {
+    if (selectedRole === "") return;
+    setGeneratedUrl(`${frontEndUrl}${noteId}/${selectedRole}`);
+  }, [selectedRole]);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(generatedUrl);
+    toast.success("Link copied to clipboard!");
+  };
+
   if (!note) return <div>Loading...</div>;
 
   return (
@@ -139,15 +177,11 @@ const NoteDetail = () => {
           </div>
           {showDropdown ? (
             <div className=" p-4">
-              <CollaboratorSelector
-                noteId={noteId}
-                onCollaboratorsSelected={handleCollaboratorsSelected}
-              />
-              <div className="mt-4">
+              <div className="mt-1">
                 <select
                   value={selectedRole}
                   onChange={(e) => handleRoleChange(e.target.value)}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full mb-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 >
                   <option value="" disabled>
                     Select Role
@@ -155,6 +189,31 @@ const NoteDetail = () => {
                   <option value="view">Viewer</option>
                   <option value="edit">Editor</option>
                 </select>
+
+                {selectedRole !== "" && (
+                  <>
+                    <div className="mb-2">
+                      <h3 className="text-lg font-semibold">Share this URL:</h3>
+                      <div className="flex items-center w-80 space-x-2">
+                        <div className="flex-1 overflow-x-auto whitespace-nowrap bg-gray-100 p-2 rounded-sm border border-gray-200 hide-scrollbar">
+                          <span>{generatedUrl}</span>
+                        </div>
+                        <button
+                          onClick={handleCopyLink}
+                          className="bg-secondary text-white py-2 px-4 rounded-lg hover:bg-primary transition duration-300"
+                        >
+                          Copy
+                        </button>
+                      </div>
+                    </div>
+                    <div>or</div>
+                  </>
+                )}
+
+                <CollaboratorSelector
+                  noteId={noteId}
+                  onCollaboratorsSelected={handleCollaboratorsSelected}
+                />
                 <button
                   onClick={handleAddCollaborators}
                   className="mt-2 bg-button font-semibold text-white py-2 px-4 rounded-lg hover:bg-[#9b2426] transition duration-300"
@@ -178,6 +237,8 @@ const NoteDetail = () => {
           canEdit={canEdit}
           content={note.content}
           onUpdate={handleNoteUpdate}
+          activeUsers={activeUsers}
+          noteId={noteId}
         />
         <div>
           <h2 className="text-xl font-semibold text-center text-gray-800 mt-4 mb-2">
